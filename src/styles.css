@@ -1,0 +1,172 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-parchment: var(--parchment);
+  --color-parchment-dark: var(--parchment-dark);
+  --color-treasure-gold: var(--treasure-gold);
+  --color-treasure-gold-glow: var(--treasure-gold-glow);
+  --color-blood-red: var(--blood-red);
+  --color-ink-brown: var(--ink-brown);
+  --color-ocean-deep: var(--ocean-deep);
+  --font-pirate: var(--font-pirate);
+  --font-body: var(--font-body);
+}
+
+:root {
+  --radius: 0.625rem;
+  /* Pirate theme */
+  --background: oklch(0.25 0.04 60);
+  --foreground: oklch(0.95 0.05 80);
+  --parchment: oklch(0.85 0.08 75);
+  --parchment-dark: oklch(0.55 0.1 50);
+  --treasure-gold: oklch(0.78 0.17 80);
+  --treasure-gold-glow: oklch(0.85 0.2 85);
+  --blood-red: oklch(0.5 0.22 25);
+  --ink-brown: oklch(0.25 0.08 40);
+  --ocean-deep: oklch(0.3 0.06 220);
+  --shadow-treasure: 0 10px 40px -10px oklch(0.78 0.17 80 / 0.5);
+  --font-pirate: "Pirata One", "Cinzel", serif;
+  --font-body: "IM Fell English", Georgia, serif;
+  --card: oklch(0.85 0.08 75);
+  --card-foreground: oklch(0.25 0.08 40);
+  --popover: oklch(0.85 0.08 75);
+  --popover-foreground: oklch(0.25 0.08 40);
+  --primary: oklch(0.78 0.17 80);
+  --primary-foreground: oklch(0.25 0.08 40);
+  --secondary: oklch(0.4 0.08 50);
+  --secondary-foreground: oklch(0.95 0.05 80);
+  --muted: oklch(0.35 0.05 60);
+  --muted-foreground: oklch(0.75 0.06 75);
+  --accent: oklch(0.5 0.22 25);
+  --accent-foreground: oklch(0.95 0.05 80);
+  --destructive: oklch(0.5 0.22 25);
+  --destructive-foreground: oklch(0.95 0.05 80);
+  --border: oklch(0.55 0.1 50);
+  --input: oklch(0.55 0.1 50);
+  --ring: oklch(0.78 0.17 80);
+}
+
+@font-face {
+  font-family: "Pirata One";
+  src: url("https://fonts.gstatic.com/s/pirataone/v22/I_urMpiDvgLdLh0fAtoftiiEr5_BdZ8.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IM Fell English";
+  src: url("https://fonts.gstatic.com/s/imfellenglish/v17/Ktk1ALSLW8zDe0rthJysWrnLsAz3F6mZVY9Y5w.woff2") format("woff2");
+  font-display: swap;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-pirate);
+    letter-spacing: 0.02em;
+  }
+}
+
+@keyframes treasure-pulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px oklch(0.78 0.17 80)); }
+  50% { transform: scale(1.2); filter: drop-shadow(0 0 20px oklch(0.85 0.2 85)) drop-shadow(0 0 8px oklch(0.78 0.17 80)); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ocean-shimmer {
+  0% { background-position: 0 0; }
+  100% { background-position: 200px 0; }
+}
+
+@keyframes cloud-drift {
+  0% { transform: translateX(-30%); }
+  100% { transform: translateX(130%); }
+}
+
+.animate-treasure-pulse { animation: treasure-pulse 1.6s ease-in-out infinite; }
+.animate-fade-in-up { animation: fade-in-up 0.4s ease-out; }
+.animate-ocean-shimmer { animation: ocean-shimmer 8s linear infinite; }
+
+/* One Piece style drifting clouds */
+.pirate-cloud {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(ellipse at center, oklch(0.98 0.01 80 / 0.55) 0%, oklch(0.98 0.01 80 / 0.25) 50%, transparent 75%);
+  filter: blur(2px);
+  will-change: transform;
+}
+.pirate-cloud-1 {
+  top: 8%;
+  width: 22%;
+  height: 7%;
+  animation: cloud-drift 55s linear infinite;
+}
+.pirate-cloud-2 {
+  top: 38%;
+  width: 30%;
+  height: 9%;
+  animation: cloud-drift 75s linear infinite;
+  animation-delay: -25s;
+  opacity: 0.85;
+}
+.pirate-cloud-3 {
+  top: 78%;
+  width: 18%;
+  height: 6%;
+  animation: cloud-drift 65s linear infinite;
+  animation-delay: -45s;
+  opacity: 0.7;
+}
